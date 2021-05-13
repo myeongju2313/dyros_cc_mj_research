@@ -97,7 +97,7 @@ void CustomController::computeSlow()
               //ref_q_(i) = q_des(i);
               ref_q_(i) = DOB_IK_output_(i);
             }            
-            // hip_compensator();
+            hip_compensator();
             GravityCalculate_MJ();
 
             if(walking_tick_mj < 1.0*hz_)
@@ -194,7 +194,7 @@ void CustomController::computeSlow()
               //ref_q_(i) = q_des(i);
               ref_q_(i) = DOB_IK_output_(i);
             }            
-            // hip_compensator();
+            hip_compensator();
             GravityCalculate_MJ();
 
             if(walking_tick_mj < 1.0*hz_)
@@ -900,62 +900,23 @@ void CustomController::floatToSupportFootstep()
 void CustomController::Joint_gain_set_MJ()
 {
     //simulation gains
-    Kp(0) = 1800.0; Kd(0) = 70.0; // Left Hip yaw
-    Kp(1) = 2100.0; Kd(1) = 90.0;// Left Hip roll
-    Kp(2) = 2100.0; Kd(2) = 90.0;// Left Hip pitch
-    Kp(3) = 2100.0; Kd(3) = 90.0;// Left Knee pitch
-    Kp(4) = 900.0; Kd(4) = 40.0;// Left Ankle pitch
-    Kp(5) = 900.0; Kd(5) = 40.0;// Left Ankle roll
+    // Kp(0) = 1800.0; Kd(0) = 70.0; // Left Hip yaw
+    // Kp(1) = 2100.0; Kd(1) = 90.0;// Left Hip roll
+    // Kp(2) = 2100.0; Kd(2) = 90.0;// Left Hip pitch
+    // Kp(3) = 2100.0; Kd(3) = 90.0;// Left Knee pitch
+    // Kp(4) = 1100.0; Kd(4) = 40.0;// Left Ankle pitch
+    // Kp(5) = 1100.0; Kd(5) = 40.0;// Left Ankle roll
 
-    Kp(6) = 1800.0; Kd(6) = 70.0;// Right Hip yaw
-    Kp(7) = 2100.0; Kd(7) = 90.0;// Right Hip roll
-    Kp(8) = 2100.0; Kd(8) = 90.0;// Right Hip pitch
-    Kp(9) = 2100.0; Kd(9) = 90.0;// Right Knee pitch
-    Kp(10) = 900.0; Kd(10) = 40.0;// Right Ankle pitch
-    Kp(11) = 900.0; Kd(11) = 40.0;// Right Ankle roll
+    // Kp(6) = 1800.0; Kd(6) = 70.0;// Right Hip yaw
+    // Kp(7) = 2100.0; Kd(7) = 90.0;// Right Hip roll
+    // Kp(8) = 2100.0; Kd(8) = 90.0;// Right Hip pitch
+    // Kp(9) = 2100.0; Kd(9) = 90.0;// Right Knee pitch
+    // Kp(10) = 1100.0; Kd(10) = 40.0;// Right Ankle pitch
+    // Kp(11) = 1100.0; Kd(11) = 40.0;// Right Ankle roll
 
-    Kp(12) = 2200.0; Kd(12) = 90.0;// Waist yaw
-    Kp(13) = 2200.0; Kd(13) = 90.0;// Waist pitch
-    Kp(14) = 2200.0; Kd(14) = 90.0;// Waist roll
-        
-    Kp(15) = 400.0; Kd(15) = 10.0;
-    Kp(16) = 800.0; Kd(16) = 10.0;
-    Kp(17) = 400.0; Kd(17) = 10.0;
-    Kp(18) = 400.0; Kd(18) = 10.0;
-    Kp(19) = 250.0; Kd(19) = 2.5;
-    Kp(20) = 250.0; Kd(20) = 2.0;
-    Kp(21) = 50.0; Kd(21) = 2.0; // Left Wrist
-    Kp(22) = 50.0; Kd(22) = 2.0; // Left Wrist
-   
-    Kp(23) = 50.0; Kd(23) = 2.0; // Neck
-    Kp(24) = 50.0; Kd(24) = 2.0; // Neck
-
-    Kp(25) = 400.0; Kd(25) = 10.0;
-    Kp(26) = 800.0; Kd(26) = 10.0;
-    Kp(27) = 400.0; Kd(27) = 10.0;
-    Kp(28) = 400.0; Kd(28) = 10.0;
-    Kp(29) = 250.0; Kd(29) = 2.5;
-    Kp(30) = 250.0; Kd(30) = 2.0;
-    Kp(31) = 50.0; Kd(31) = 2.0; // Right Wrist
-    Kp(32) = 50.0; Kd(32) = 2.0; // Right Wrist
-    
-    // Kp(0) = 2000.0; Kd(0) = 15.0; // Left Hip yaw
-    // Kp(1) = 5000.0; Kd(1) = 50.0;// Left Hip roll
-    // Kp(2) = 4000.0; Kd(2) = 20.0;// Left Hip pitch
-    // Kp(3) = 3700.0; Kd(3) = 25.0;// Left Knee pitch
-    // Kp(4) = 5000.0; Kd(4) = 30.0;// Left Ankle pitch /5000 / 30
-    // Kp(5) = 5000.0; Kd(5) = 30.0;// Left Ankle roll /5000 / 30
-
-    // Kp(6) = 2000.0; Kd(6) = 15.0;// Right Hip yaw
-    // Kp(7) = 5000.0; Kd(7) = 50.0;// Right Hip roll
-    // Kp(8) = 4000.0; Kd(8) = 20.0;// Right Hip pitch
-    // Kp(9) = 3700.0; Kd(9) = 25.0;// Right Knee pitch
-    // Kp(10) = 5000.0; Kd(10) = 30.0;// Right Ankle pitch
-    // Kp(11) = 5000.0; Kd(11) = 30.0;// Right Ankle roll
-
-    // Kp(12) = 6000.0; Kd(12) = 200.0;// Waist yaw
-    // Kp(13) = 10000.0; Kd(13) = 100.0;// Waist pitch
-    // Kp(14) = 10000.0; Kd(14) = 100.0;// Waist roll
+    // Kp(12) = 2200.0; Kd(12) = 90.0;// Waist yaw
+    // Kp(13) = 2200.0; Kd(13) = 90.0;// Waist pitch
+    // Kp(14) = 2200.0; Kd(14) = 90.0;// Waist roll
         
     // Kp(15) = 400.0; Kd(15) = 10.0;
     // Kp(16) = 800.0; Kd(16) = 10.0;
@@ -977,6 +938,45 @@ void CustomController::Joint_gain_set_MJ()
     // Kp(30) = 250.0; Kd(30) = 2.0;
     // Kp(31) = 50.0; Kd(31) = 2.0; // Right Wrist
     // Kp(32) = 50.0; Kd(32) = 2.0; // Right Wrist
+    
+    Kp(0) = 2000.0; Kd(0) = 15.0; // Left Hip yaw
+    Kp(1) = 5000.0; Kd(1) = 50.0;// Left Hip roll
+    Kp(2) = 4000.0; Kd(2) = 20.0;// Left Hip pitch
+    Kp(3) = 3700.0; Kd(3) = 25.0;// Left Knee pitch
+    Kp(4) = 5000.0; Kd(4) = 30.0;// Left Ankle pitch /5000 / 30
+    Kp(5) = 5000.0; Kd(5) = 30.0;// Left Ankle roll /5000 / 30
+
+    Kp(6) = 2000.0; Kd(6) = 15.0;// Right Hip yaw
+    Kp(7) = 5000.0; Kd(7) = 50.0;// Right Hip roll
+    Kp(8) = 4000.0; Kd(8) = 20.0;// Right Hip pitch
+    Kp(9) = 3700.0; Kd(9) = 25.0;// Right Knee pitch
+    Kp(10) = 5000.0; Kd(10) = 30.0;// Right Ankle pitch
+    Kp(11) = 5000.0; Kd(11) = 30.0;// Right Ankle roll
+
+    Kp(12) = 6000.0; Kd(12) = 200.0;// Waist yaw
+    Kp(13) = 10000.0; Kd(13) = 100.0;// Waist pitch
+    Kp(14) = 10000.0; Kd(14) = 100.0;// Waist roll
+        
+    Kp(15) = 400.0; Kd(15) = 10.0;
+    Kp(16) = 800.0; Kd(16) = 10.0;
+    Kp(17) = 400.0; Kd(17) = 10.0;
+    Kp(18) = 400.0; Kd(18) = 10.0;
+    Kp(19) = 250.0; Kd(19) = 2.5;
+    Kp(20) = 250.0; Kd(20) = 2.0;
+    Kp(21) = 50.0; Kd(21) = 2.0; // Left Wrist
+    Kp(22) = 50.0; Kd(22) = 2.0; // Left Wrist
+   
+    Kp(23) = 50.0; Kd(23) = 2.0; // Neck
+    Kp(24) = 50.0; Kd(24) = 2.0; // Neck
+
+    Kp(25) = 400.0; Kd(25) = 10.0;
+    Kp(26) = 800.0; Kd(26) = 10.0;
+    Kp(27) = 400.0; Kd(27) = 10.0;
+    Kp(28) = 400.0; Kd(28) = 10.0;
+    Kp(29) = 250.0; Kd(29) = 2.5;
+    Kp(30) = 250.0; Kd(30) = 2.0;
+    Kp(31) = 50.0; Kd(31) = 2.0; // Right Wrist
+    Kp(32) = 50.0; Kd(32) = 2.0; // Right Wrist
 }
 
 void CustomController::addZmpOffset()
@@ -1630,7 +1630,7 @@ void CustomController::getPelvTrajectory()
   pelv_trajectory_support_.translation()(0) = pelv_support_current_.translation()(0) + 0.7*(com_desired_(0) - 0.15*damping_x - com_support_current_(0));//- 0.01 * zmp_err_(0) * 0;
   pelv_trajectory_support_.translation()(1) = pelv_support_current_.translation()(1) + 0.7*(com_desired_(1) - 0.6*damping_y - com_support_current_(1)) ;//- 0.01 * zmp_err_(1) * 0;
   pelv_trajectory_support_.translation()(2) = com_desired_(2);
-  // MJ_graph << com_desired_(0) << "," << com_support_current_(0) << "," << com_desired_(1) << "," << com_support_current_(1) << endl;
+  MJ_graph << com_desired_(0) << "," << com_support_current_(0) << "," << com_desired_(1) << "," << com_support_current_(1) << endl;
   Eigen::Vector3d Trunk_trajectory_euler;
   Trunk_trajectory_euler.setZero();
 
@@ -1665,7 +1665,7 @@ void CustomController::getPelvTrajectory()
   Trunk_trajectory_euler(0) = R_angle_input;
   Trunk_trajectory_euler(1) = P_angle_input;
 
-  MJ_graph << R_angle * 180 / 3.141592 << "," << Trunk_trajectory_euler(0) << "," << P_angle * 180 / 3.141592 << "," << Trunk_trajectory_euler(1) << endl;
+  // MJ_graph << R_angle * 180 / 3.141592 << "," << Trunk_trajectory_euler(0) << "," << P_angle * 180 / 3.141592 << "," << Trunk_trajectory_euler(1) << endl;
     
   pelv_trajectory_support_.linear() = DyrosMath::rotateWithZ(Trunk_trajectory_euler(2))*DyrosMath::rotateWithY(Trunk_trajectory_euler(1))*DyrosMath::rotateWithX(Trunk_trajectory_euler(0));
      
@@ -1861,15 +1861,15 @@ void CustomController::GravityCalculate_MJ()
     {
       wbc_.set_contact(rd_, 1, 0);       
       Gravity_SSP_ = wbc_.gravity_compensation_torque(rd_);
-      // Gravity_SSP_(1) = 1.4*Gravity_SSP_(1);
-      // Gravity_SSP_(5) = 1.15*Gravity_SSP_(5);
+      Gravity_SSP_(1) = 1.4*Gravity_SSP_(1);
+      Gravity_SSP_(5) = 1.15*Gravity_SSP_(5);
     }
     else if(foot_step_(current_step_num_,6) == 0) // 오른발 지지
     {
       wbc_.set_contact(rd_, 0, 1);       
       Gravity_SSP_ = wbc_.gravity_compensation_torque(rd_); 
-      // Gravity_SSP_(7) = 1.4*Gravity_SSP_(7);
-      // Gravity_SSP_(11) = 1.15*Gravity_SSP_(11);
+      Gravity_SSP_(7) = 1.4*Gravity_SSP_(7);
+      Gravity_SSP_(11) = 1.15*Gravity_SSP_(11);
     }
     Gravity_DSP_.setZero();
     contact_torque_MJ.setZero();
@@ -1910,7 +1910,7 @@ void CustomController::GravityCalculate_MJ()
 
 void CustomController::parameterSetting()
 {
-    target_x_ = 2.0;
+    target_x_ = 0.0;
     target_y_ = 0.0;
     target_z_ = 0.0;
     com_height_ = 0.71;
