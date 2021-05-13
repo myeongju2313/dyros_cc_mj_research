@@ -97,7 +97,7 @@ void CustomController::computeSlow()
               //ref_q_(i) = q_des(i);
               ref_q_(i) = DOB_IK_output_(i);
             }            
-            hip_compensator();
+            // hip_compensator();
             GravityCalculate_MJ();
 
             if(walking_tick_mj < 1.0*hz_)
@@ -194,7 +194,7 @@ void CustomController::computeSlow()
               //ref_q_(i) = q_des(i);
               ref_q_(i) = DOB_IK_output_(i);
             }            
-            hip_compensator();
+            // hip_compensator();
             GravityCalculate_MJ();
 
             if(walking_tick_mj < 1.0*hz_)
@@ -368,12 +368,12 @@ void CustomController::updateInitialState()
 
     pelv_float_init_.translation() = DyrosMath::multiplyIsometry3dVector3d(DyrosMath::inverseIsometry3d(pelv_yaw_rot_current_from_global_),rd_.link_[Pelvis].xpos);
     
-    lfoot_float_init_.linear() = DyrosMath::inverseIsometry3d(pelv_yaw_rot_current_from_global_) * rd_.link_[Left_Foot].Rotm;
-    //lfoot_float_init_.linear() = DyrosMath::inverseIsometry3d(pelv_yaw_rot_current_from_global_) * DyrosMath::inverseIsometry3d(lfoot_pitch_rot_) * DyrosMath::inverseIsometry3d(lfoot_roll_rot_) * rd_.link_[Left_Foot].Rotm;
+    // lfoot_float_init_.linear() = DyrosMath::inverseIsometry3d(pelv_yaw_rot_current_from_global_) * rd_.link_[Left_Foot].Rotm;
+    lfoot_float_init_.linear() = DyrosMath::inverseIsometry3d(pelv_yaw_rot_current_from_global_) * DyrosMath::inverseIsometry3d(lfoot_pitch_rot_) * DyrosMath::inverseIsometry3d(lfoot_roll_rot_) * rd_.link_[Left_Foot].Rotm;
     lfoot_float_init_.translation() = DyrosMath::multiplyIsometry3dVector3d(DyrosMath::inverseIsometry3d(pelv_yaw_rot_current_from_global_),rd_.link_[Left_Foot].xpos);  // 지면에서 Ankle frame 위치
     
-    rfoot_float_init_.linear() = DyrosMath::inverseIsometry3d(pelv_yaw_rot_current_from_global_) * rd_.link_[Right_Foot].Rotm;
-    //rfoot_float_init_.linear() = DyrosMath::inverseIsometry3d(pelv_yaw_rot_current_from_global_) * DyrosMath::inverseIsometry3d(rfoot_pitch_rot_) * DyrosMath::inverseIsometry3d(rfoot_roll_rot_) * rd_.link_[Right_Foot].Rotm;
+    // rfoot_float_init_.linear() = DyrosMath::inverseIsometry3d(pelv_yaw_rot_current_from_global_) * rd_.link_[Right_Foot].Rotm;
+    rfoot_float_init_.linear() = DyrosMath::inverseIsometry3d(pelv_yaw_rot_current_from_global_) * DyrosMath::inverseIsometry3d(rfoot_pitch_rot_) * DyrosMath::inverseIsometry3d(rfoot_roll_rot_) * rd_.link_[Right_Foot].Rotm;
     rfoot_float_init_.translation() = DyrosMath::multiplyIsometry3dVector3d(DyrosMath::inverseIsometry3d(pelv_yaw_rot_current_from_global_),rd_.link_[Right_Foot].xpos); // 지면에서 Ankle frame
     
     com_float_init_ = DyrosMath::multiplyIsometry3dVector3d(DyrosMath::inverseIsometry3d(pelv_yaw_rot_current_from_global_),rd_.link_[COM_id].xpos); // 지면에서 CoM 위치   
@@ -420,12 +420,12 @@ void CustomController::getRobotState()
 
   pelv_float_current_.translation() = DyrosMath::multiplyIsometry3dVector3d(DyrosMath::inverseIsometry3d(pelv_yaw_rot_current_from_global_),rd_.link_[Pelvis].xpos);
 
-  lfoot_float_current_.linear() = DyrosMath::inverseIsometry3d(pelv_yaw_rot_current_from_global_) * rd_.link_[Left_Foot].Rotm;
-  //lfoot_float_current_.linear() = DyrosMath::inverseIsometry3d(pelv_yaw_rot_current_from_global_) * DyrosMath::inverseIsometry3d(lfoot_pitch_rot_) * DyrosMath::inverseIsometry3d(lfoot_roll_rot_) * rd_.link_[Left_Foot].Rotm;
+  // lfoot_float_current_.linear() = DyrosMath::inverseIsometry3d(pelv_yaw_rot_current_from_global_) * rd_.link_[Left_Foot].Rotm;
+  lfoot_float_current_.linear() = DyrosMath::inverseIsometry3d(pelv_yaw_rot_current_from_global_) * DyrosMath::inverseIsometry3d(lfoot_pitch_rot_) * DyrosMath::inverseIsometry3d(lfoot_roll_rot_) * rd_.link_[Left_Foot].Rotm;
   lfoot_float_current_.translation() = DyrosMath::multiplyIsometry3dVector3d(DyrosMath::inverseIsometry3d(pelv_yaw_rot_current_from_global_),rd_.link_[Left_Foot].xpos);  // 지면에서 Ankle frame 위치
   
-  rfoot_float_current_.linear() = DyrosMath::inverseIsometry3d(pelv_yaw_rot_current_from_global_) * rd_.link_[Right_Foot].Rotm;
-  //rfoot_float_current_.linear() = DyrosMath::inverseIsometry3d(pelv_yaw_rot_current_from_global_) * DyrosMath::inverseIsometry3d(rfoot_pitch_rot_) * DyrosMath::inverseIsometry3d(rfoot_roll_rot_) * rd_.link_[Right_Foot].Rotm;
+  // rfoot_float_current_.linear() = DyrosMath::inverseIsometry3d(pelv_yaw_rot_current_from_global_) * rd_.link_[Right_Foot].Rotm;
+  rfoot_float_current_.linear() = DyrosMath::inverseIsometry3d(pelv_yaw_rot_current_from_global_) * DyrosMath::inverseIsometry3d(rfoot_pitch_rot_) * DyrosMath::inverseIsometry3d(rfoot_roll_rot_) * rd_.link_[Right_Foot].Rotm;
   rfoot_float_current_.translation() = DyrosMath::multiplyIsometry3dVector3d(DyrosMath::inverseIsometry3d(pelv_yaw_rot_current_from_global_),rd_.link_[Right_Foot].xpos); // 지면에서 Ankle frame
    
   com_float_current_ = DyrosMath::multiplyIsometry3dVector3d(DyrosMath::inverseIsometry3d(pelv_yaw_rot_current_from_global_),rd_.link_[COM_id].xpos); // 지면에서 CoM 위치   
@@ -1861,15 +1861,15 @@ void CustomController::GravityCalculate_MJ()
     {
       wbc_.set_contact(rd_, 1, 0);       
       Gravity_SSP_ = wbc_.gravity_compensation_torque(rd_);
-      Gravity_SSP_(1) = 1.4*Gravity_SSP_(1);
-      Gravity_SSP_(5) = 1.15*Gravity_SSP_(5);
+      // Gravity_SSP_(1) = 1.4*Gravity_SSP_(1);
+      // Gravity_SSP_(5) = 1.15*Gravity_SSP_(5);
     }
     else if(foot_step_(current_step_num_,6) == 0) // 오른발 지지
     {
       wbc_.set_contact(rd_, 0, 1);       
       Gravity_SSP_ = wbc_.gravity_compensation_torque(rd_); 
-      Gravity_SSP_(7) = 1.4*Gravity_SSP_(7);
-      Gravity_SSP_(11) = 1.15*Gravity_SSP_(11);
+      // Gravity_SSP_(7) = 1.4*Gravity_SSP_(7);
+      // Gravity_SSP_(11) = 1.15*Gravity_SSP_(11);
     }
     Gravity_DSP_.setZero();
     contact_torque_MJ.setZero();
@@ -1910,11 +1910,11 @@ void CustomController::GravityCalculate_MJ()
 
 void CustomController::parameterSetting()
 {
-    target_x_ = 0.45;
-    target_y_ = 0.45;
+    target_x_ = 2.0;
+    target_y_ = 0.0;
     target_z_ = 0.0;
     com_height_ = 0.71;
-    target_theta_ = -0.5;
+    target_theta_ = 0.0;
     step_length_x_ = 0.08;
     step_length_y_ = 0.0;
     is_right_foot_swing_ = 1;
@@ -2177,7 +2177,7 @@ void CustomController::Compliant_control(Eigen::Vector12d desired_leg_q)
 {     
   Eigen::Vector12d current_u;
   double del_t = 0.0, Kp = 0.0;
-  del_t = 1/hz_; Kp = 25.0; // 실험
+  del_t = 1/hz_; Kp = 15.0; // 실험
   //Kp = 20.0; // 시뮬
 
   if(walking_tick_mj == 0)  
@@ -2201,66 +2201,14 @@ void CustomController::Compliant_control(Eigen::Vector12d desired_leg_q)
     d_hat_b = d_hat;
 
   d_hat = (2*M_PI*8.0*del_t)/(1+2*M_PI*8.0*del_t)*d_hat + 1/(1+2*M_PI*8.0*del_t)*d_hat_b;
-
-  double default_gain = 0.0;
-  double compliant_gain = 0.0;
-  double compliant_tick = 0.1*hz_;
-  double gain_temp = 0.0;
-  for (int i = 0; i < 12; i ++)
-  {
-    if(i < 6)
-    {
-      gain_temp = default_gain;
-      
-      if (foot_step_(current_step_num_,6) == 0)
-      {
-        if(walking_tick_mj < t_start_ + t_total_ - t_rest_last_ - t_double2_ - compliant_tick)
-        {
-          gain_temp = default_gain;
-        }
-        else if(walking_tick_mj >= t_start_ + t_total_ - t_rest_last_ - t_double2_ - compliant_tick && walking_tick_mj < t_start_ + t_total_ - t_rest_last_ - t_double2_)
-        {
-          gain_temp = DyrosMath::cubic(walking_tick_mj, t_start_ + t_total_ - t_rest_last_ - t_double2_ - compliant_tick, t_start_ + t_total_ - t_rest_last_ - t_double2_, default_gain, compliant_gain, 0.0, 0.0);
-        }
-        else
-        {
-          gain_temp = DyrosMath::cubic(walking_tick_mj, t_start_ + t_total_ - t_rest_last_, t_start_ + t_total_, compliant_gain, default_gain, 0.0, 0.0);
-        }
-      }
-      else
-      {
-        gain_temp = default_gain;
-      }
-             
-      DOB_IK_output_(i) = desired_leg_q(i) + gain_temp*d_hat(i);  
-    }
-    else
-    {      
-      gain_temp = default_gain;
-      
-      if (foot_step_(current_step_num_,6) == 1) // 왼발 지지 상태
-      {
-        if(walking_tick_mj < t_start_ + t_total_ - t_rest_last_ - t_double2_ - compliant_tick)
-        {
-          gain_temp = default_gain;
-        }
-        else if(walking_tick_mj >= t_start_ + t_total_ - t_rest_last_ - t_double2_ - compliant_tick && walking_tick_mj < t_start_ + t_total_ - t_rest_last_ - t_double2_)
-        {
-          gain_temp = DyrosMath::cubic(walking_tick_mj, t_start_ + t_total_ - t_rest_last_ - t_double2_ - compliant_tick, t_start_ + t_total_ - t_rest_last_ - t_double2_, default_gain, compliant_gain, 0.0, 0.0);
-        }
-        else
-        {
-          gain_temp = DyrosMath::cubic(walking_tick_mj, t_start_ + t_total_ - t_rest_last_, t_start_ + t_total_, compliant_gain, default_gain, 0.0, 0.0);
-        }
-      }
-      else // 오른발 지지 상태
-      {
-        gain_temp = default_gain;
-      }
-      
-      DOB_IK_output_(i) = desired_leg_q(i) + gain_temp*d_hat(i);  
-    }
-  }   
+                 
+  for(int i = 0; i<12; i++)
+  { DOB_IK_output_(i) = desired_leg_q(i); }
+  
+  DOB_IK_output_(4) = desired_leg_q(4) + 0.5*d_hat(4);
+  DOB_IK_output_(5) = desired_leg_q(5) + 0.5*d_hat(5);
+  DOB_IK_output_(10) = desired_leg_q(10) + 0.5*d_hat(10);
+  DOB_IK_output_(11) = desired_leg_q(11) + 0.5*d_hat(11);      
 
   d_hat_b = d_hat;
   DOB_IK_output_b_ = DOB_IK_output_;
